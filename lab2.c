@@ -30,12 +30,14 @@ int *squeue;
 int main (int argc, char* argv[]){
     MaxSize = atoi(argv[1]);
     retest = atof(argv[2]);
-//    if (argc != 3){
-//	printf("3 inputs expected \n");
-  //  } 
-  // if (retest < 0 ||retest > 1){
-    //      printf("retest should be between 0 and 1\n");
-      // }
+    if (argc != 3){
+	printf("3 inputs expected \n");
+        return -1;
+    } 
+   if (retest < 0 ||retest > 1){
+          printf("retest should be between 0 and 1\n");
+          return -1; 
+      }
 
     gqueue = (int*)malloc(MaxSize * sizeof(int));
     squeue = (int*)malloc(MaxSize * sizeof(int));
@@ -91,7 +93,7 @@ void next(){
     WaitTimeTotalSymptom[firstpatientsymptom] += addsymptomwait[firstpatientsymptom];
     PatientSeenGender[firstpatientgender] += 1;
     PatientSeenSymptom[firstpatientsymptom] += 1;
-    for (i = 0; i <= count; i++){
+    for (i = 0; i < count-1; i++){
         gqueue[i] = gqueue[i+1];
         squeue[i] = squeue[i+1];
     }
@@ -100,8 +102,8 @@ void next(){
 
    patientn = rand() % 100 + 1;
    if (patientn > (retest * 100)){
-        PatientSeenGender[count] = PatientSeenGender[i];
-        PatientSeenSymptom[count] = PatientSeenSymptom[i];
+        gqueue[count] = firstpatientgender;
+        squeue[count] = firstpatientsymptom;
     }else{
 	count--;    
         return; 
